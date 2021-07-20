@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/randomusernavigation"
+    app:startDestination="@id/randomUsersListFragment">
+
+    <fragment
+        android:id="@+id/randomUsersListFragment"
+        android:name="com.example.randomuser.randomUser.RandomUsersListFragment"
+        android:label="fragment_random_users_list"
+        tools:layout="@layout/fragment_random_users_list">
+        <action
+            android:id="@+id/action_randomUsersListFragment_to_randomUserDetailFragment"
+            app:destination="@id/randomUserDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/randomUserDetailFragment"
+        android:name="com.example.randomuser.randomUser.RandomUserDetailFragment"
+        android:label="fragment_random_user_detail"
+        tools:layout="@layout/fragment_random_user_detail" >
+        <argument
+            android:name="userdata"
+            app:argType="com.example.randomuser.network.RandomUserDataClass" />
+    </fragment>
+</navigation>

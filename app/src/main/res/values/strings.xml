@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">RandomUser</string>
+    <string name="welcome">Welcome</string>
+    <string name="userdata">Random Users</string>
+    <string name="weatherreport">My Weather Report</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="random_users">Random Users</string>
+    <string name="user_detail">User Detail</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="address">Address</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
+    <string name="country">Country</string>
+    <string name="cell">Cell</string>
+    <string name="last_updated">Last Updated At </string>
+    <string name="random_weather">Current Weather Detail</string>
+    <string name="error_text">Please try again after some time or refresh the page</string>
+    <string name="loading">Loading...</string>
+
+
+</resources>
