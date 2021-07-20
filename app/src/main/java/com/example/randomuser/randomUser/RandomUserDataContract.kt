@@ -2,6 +2,10 @@ package com.example.randomuser.randomUser
 
 import com.example.randomuser.network.RandomUserDataClass
 
+/**
+ * Created by desiaraj on 18/07/2021
+ */
+
 class RandomUserDataContract {
 
     interface View{

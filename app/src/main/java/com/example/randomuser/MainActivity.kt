@@ -7,7 +7,11 @@ import androidx.appcompat.widget.AppCompatButton
 import com.example.randomuser.randomUser.RandomUserDataActivity
 import com.example.randomuser.weatherReport.WeatherReportActivity
 
-//This is a activity to helps for navigate to weatherReport or Randomuserdata
+/**
+ * Created by desiaraj on 17/07/2021
+ */
+
+//This is an activity to helps for navigate to weatherReport or Randomuserdata
 class MainActivity : AppCompatActivity() {
 
     //declare button
@@ -22,9 +26,12 @@ class MainActivity : AppCompatActivity() {
         abuserdata = findViewById(R.id.ab_userdata)
         abweatherreport = findViewById(R.id.ab_weatherdata)
 
+        //Open Remote User Detail
         abuserdata.setOnClickListener {
           startActivity(Intent(this, RandomUserDataActivity::class.java))
         }
+
+        //Open Current User Weather info
         abweatherreport.setOnClickListener {
             startActivity(Intent(this,WeatherReportActivity::class.java))
         }

@@ -3,6 +3,12 @@ package com.example.randomuser.network
 import com.squareup.moshi.Json
 import java.security.Timestamp
 
+/**
+ * Created by desiaraj on 20/07/2021
+ */
+
+//All the Weather related data classes declare here
+
 data class WeatherReportDataClass(
     @Json(name = "weather") val list:List<Weather>?,
     @Json(name = "name") val cityName:String?,

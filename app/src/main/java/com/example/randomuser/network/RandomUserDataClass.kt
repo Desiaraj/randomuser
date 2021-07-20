@@ -4,8 +4,13 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import com.squareup.moshi.Json
 
+/**
+ * Created by desiaraj on 18/07/2021
+ */
+
 //all the parellable data classes here
 
+//The Main Random Users API Results
 data class RandomUserMain(
     @Json(name = "results") val list:List<RandomUserDataClass>?
     )

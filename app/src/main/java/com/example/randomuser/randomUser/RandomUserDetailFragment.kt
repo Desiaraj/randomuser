@@ -14,6 +14,9 @@ import com.example.randomuser.databinding.FragmentRandomUserDetailBinding
 import com.example.randomuser.network.RandomUserDataClass
 import com.example.randomuser.weatherReport.WeatherReportActivity
 
+/**
+ * Created by desiaraj on 18/07/2021
+ */
 
 class RandomUserDetailFragment : Fragment() {
 
@@ -64,14 +67,19 @@ class RandomUserDetailFragment : Fragment() {
         userdetailBinding.tvCountry.text = userdata.location?.country
 
         userdetailBinding.btRandomweather.setOnClickListener {
-            val intent = Intent(activity as RandomUserDataActivity,WeatherReportActivity::class.java).apply {
-                putExtra("fromrandomuser",true)
-                putExtra("lan",userdata.location?.coordinates?.lan?.toDouble())
-                putExtra("lon",userdata.location?.coordinates?.lon?.toDouble())
-            }
-            startActivity(intent)
+            startWeatherReportActivity()
         }
 
+    }
+
+    private fun startWeatherReportActivity() {
+        val intent =
+            Intent(activity as RandomUserDataActivity, WeatherReportActivity::class.java).apply {
+                putExtra("fromrandomuser", true)
+                putExtra("lan", userdata.location?.coordinates?.lan?.toDouble())
+                putExtra("lon", userdata.location?.coordinates?.lon?.toDouble())
+            }
+        startActivity(intent)
     }
 
 

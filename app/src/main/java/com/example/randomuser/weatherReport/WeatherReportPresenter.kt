@@ -13,35 +13,43 @@ import java.security.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 
-class WeatherReportPresenter(private val view:WeatherReportContract.View) : WeatherReportContract.Presenter {
+/**
+ * Created by desiaraj on 20/07/2021
+ */
 
+class WeatherReportPresenter(private val view: WeatherReportContract.View) :
+    WeatherReportContract.Presenter {
 
+    //To get Weather report
     override fun getWeatherReport(lan: Double, lon: Double) {
 
-        WeatherReportClient().getWeatherReportService().getWeatherByCoordinates(lan = lan,
-        lon = lon,appid = AppConstants.Network.OpenWeatherAPIKey,units = AppConstants.Network.Units).enqueue(object :Callback<WeatherReportDataClass>{
+        WeatherReportClient().getWeatherReportService().getWeatherByCoordinates(
+            lan = lan,
+            lon = lon,
+            appid = AppConstants.Network.OpenWeatherAPIKey,
+            units = AppConstants.Network.Units
+        ).enqueue(object : Callback<WeatherReportDataClass> {
             override fun onResponse(
                 call: Call<WeatherReportDataClass>,
                 response: Response<WeatherReportDataClass>
             ) {
-                if(response.isSuccessful){
+                if (response.isSuccessful) {
                     view.getWeatherReportSuccess(response.body())
-                }else{
-                    Log.d("Presenter","Failure $response")
+                } else {
                     view.getWeatherReportFailure(AppConstants.Network.APIError)
                 }
             }
 
             override fun onFailure(call: Call<WeatherReportDataClass>, t: Throwable) {
-                when(t){
-                    is ConnectException ->{
+                when (t) {
+                    is ConnectException -> {
                         view.getWeatherReportFailure(AppConstants.Network.NetworkError)
                     }
-                    is SocketTimeoutException ->{
+                    is SocketTimeoutException -> {
                         view.getWeatherReportFailure(AppConstants.Network.Timeout)
                     }
-                    else ->{
-                        Log.d("Presenter","Failure ${t.message}")
+                    else -> {
+                        Log.d("Presenter", "Failure ${t.message}")
                         view.getWeatherReportFailure(AppConstants.Network.APIError)
                     }
                 }
@@ -50,15 +58,22 @@ class WeatherReportPresenter(private val view:WeatherReportContract.View) : Weat
         })
     }
 
-    override fun getTime(time:String): String {
-        var finaltime:String = ""
-        val timeformat = SimpleDateFormat("HH:mm:ss", Locale.ENGLISH)
-       val ftime = timeformat.format(Date(time.toLong() * 1000)).split(":").toTypedArray()
+    /**
+     * To get time from weather timestamp
+     * We could use this method for to get SunRiseTime and SunSet Time from given Timestamp
+     */
 
-        finaltime = if(ftime[0].toInt() > 12){
-            (ftime[0].toInt() - 12).toString().plus(":").plus(ftime[1]).plus(":").plus(ftime[2]).plus(" PM")
-        }else{
-            (ftime[0].toInt()).toString().plus(":").plus(ftime[1]).plus(":").plus(ftime[2]).plus(" AM")
+    override fun getTime(time: String): String {
+        var finaltime: String = ""
+        val timeformat = SimpleDateFormat("HH:mm:ss", Locale.ENGLISH)
+        val ftime = timeformat.format(Date(time.toLong() * 1000)).split(":").toTypedArray()
+
+        finaltime = if (ftime[0].toInt() > 12) {
+            (ftime[0].toInt() - 12).toString().plus(":").plus(ftime[1]).plus(":").plus(ftime[2])
+                .plus(" PM")
+        } else {
+            (ftime[0].toInt()).toString().plus(":").plus(ftime[1]).plus(":").plus(ftime[2])
+                .plus(" AM")
         }
         return finaltime
     }

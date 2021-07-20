@@ -11,7 +11,11 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
-//This class is used for to make API calls and get data from API
+/**
+ * Created by desiaraj on 18/07/2021
+ */
+
+//This class is used for to make Random users API call and get data
 
 class RandomUserDataClient {
 

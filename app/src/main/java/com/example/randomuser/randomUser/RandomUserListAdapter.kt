@@ -10,6 +10,10 @@ import com.bumptech.glide.Glide
 import com.example.randomuser.databinding.UserdetaillayoutBinding
 import com.example.randomuser.network.RandomUserDataClass
 
+/**
+ * Created by desiaraj on 18/07/2021
+ */
+
 class RandomUserListAdapter(
     val context: Context,
     private var userslist: List<RandomUserDataClass>,

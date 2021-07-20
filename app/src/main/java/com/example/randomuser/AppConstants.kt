@@ -1,5 +1,11 @@
 package com.example.randomuser
 
+/**
+ * Created by desiaraj on 17/07/2021
+ */
+
+// All App Constants declared here like API base url and network error message
+
 class AppConstants {
 
     object Network{

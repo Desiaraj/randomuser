@@ -17,7 +17,11 @@ import com.bumptech.glide.Glide
 import com.example.randomuser.R
 import com.example.randomuser.databinding.FragmentRandomUsersListBinding
 import com.example.randomuser.network.RandomUserDataClass
+import com.google.android.material.snackbar.Snackbar
 
+/**
+ * Created by desiaraj on 18/07/2021
+ */
 
 class RandomUsersListFragment : Fragment(), RandomUserDataContract.View {
 
@@ -128,7 +132,7 @@ class RandomUsersListFragment : Fragment(), RandomUserDataContract.View {
 
 
     override fun getUserDataFailure(msg: String) {
-        Log.d("RandomUser", "Failure Message $msg")
+       Snackbar.make(fragmentrandom.rlHome,msg,1000).show()
     }
 
     override fun userClicked(data: RandomUserDataClass) {

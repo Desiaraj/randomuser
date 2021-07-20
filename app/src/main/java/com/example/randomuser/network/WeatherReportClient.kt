@@ -11,12 +11,17 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
+/**
+ * Created by desiaraj on 20/07/2021
+ */
+
+//This class is used for to get Weather report info for current location and random users location
 class WeatherReportClient {
 
     var retrofit:Retrofit
 
-    fun getWeatherReportService(): weatherReportService {
-        return retrofit.create(weatherReportService::class.java)
+    fun getWeatherReportService(): WeatherReportService {
+        return retrofit.create(WeatherReportService::class.java)
     }
 
     init {
@@ -38,7 +43,7 @@ class WeatherReportClient {
     }
 }
 
-interface weatherReportService{
+interface WeatherReportService{
     @GET("weather")
     fun getWeatherByCoordinates(
         @Query("lat") lan: Double,
