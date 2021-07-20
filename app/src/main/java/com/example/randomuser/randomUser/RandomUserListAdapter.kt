@@ -16,7 +16,7 @@ import com.example.randomuser.network.RandomUserDataClass
 
 class RandomUserListAdapter(
     val context: Context,
-    private var userslist: List<RandomUserDataClass>,
+    private var usersList: List<RandomUserDataClass>,
     val view: RandomUserDataContract.View
 ) :
     ListAdapter<RandomUserDataClass, RandomUserListAdapter.UserDataViewHolder>(DiffCallback) {
@@ -27,23 +27,23 @@ class RandomUserListAdapter(
         companion object {
             fun from(parent: ViewGroup): UserDataViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val userdatalistbinding =
+                val userDataListBinding =
                     UserdetaillayoutBinding.inflate(layoutInflater, parent, false)
-                return UserDataViewHolder(userdatalistbinding)
+                return UserDataViewHolder(userDataListBinding)
             }
         }
 
         fun bind(
             context: Context,
-            userdetail: RandomUserDataClass,
+            userDetail: RandomUserDataClass,
             view: RandomUserDataContract.View
         ) {
-            binding.tvUsername.text = userdetail.name?.first.plus(" ").plus(userdetail.name?.last)
+            binding.tvUsername.text = userDetail.name?.first.plus(" ").plus(userDetail.name?.last)
             Glide.with(context)
-                .load(userdetail.picture?.medium)
+                .load(userDetail.picture?.medium)
                 .into(binding.imgUserphoto)
             binding.llUserdata.setOnClickListener {
-                view.userClicked(userdetail)
+                view.userClicked(userDetail)
             }
         }
     }
@@ -69,6 +69,6 @@ class RandomUserListAdapter(
     }
 
     override fun onBindViewHolder(holder: UserDataViewHolder, position: Int) {
-        holder.bind(context, userslist[position], view)
+        holder.bind(context, usersList[position], view)
     }
 }

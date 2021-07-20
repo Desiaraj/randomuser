@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit
 
 class RandomUserDataClient {
 
-    var retrofit: Retrofit
+    private var retrofit: Retrofit
 
     fun getUserDataService(): UserDataService {
         return retrofit.create(UserDataService::class.java)

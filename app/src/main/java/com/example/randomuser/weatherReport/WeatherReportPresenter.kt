@@ -9,7 +9,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.net.ConnectException
 import java.net.SocketTimeoutException
-import java.security.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -26,7 +25,7 @@ class WeatherReportPresenter(private val view: WeatherReportContract.View) :
         WeatherReportClient().getWeatherReportService().getWeatherByCoordinates(
             lan = lan,
             lon = lon,
-            appid = AppConstants.Network.OpenWeatherAPIKey,
+            appId = AppConstants.Network.OpenWeatherAPIKey,
             units = AppConstants.Network.Units
         ).enqueue(object : Callback<WeatherReportDataClass> {
             override fun onResponse(
@@ -64,17 +63,16 @@ class WeatherReportPresenter(private val view: WeatherReportContract.View) :
      */
 
     override fun getTime(time: String): String {
-        var finaltime: String = ""
-        val timeformat = SimpleDateFormat("HH:mm:ss", Locale.ENGLISH)
-        val ftime = timeformat.format(Date(time.toLong() * 1000)).split(":").toTypedArray()
 
-        finaltime = if (ftime[0].toInt() > 12) {
-            (ftime[0].toInt() - 12).toString().plus(":").plus(ftime[1]).plus(":").plus(ftime[2])
+        val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.ENGLISH)
+        val fTime = timeFormat.format(Date(time.toLong() * 1000)).split(":").toTypedArray()
+
+        return if (fTime[0].toInt() > 12) {
+            (fTime[0].toInt() - 12).toString().plus(":").plus(fTime[1]).plus(":").plus(fTime[2])
                 .plus(" PM")
         } else {
-            (ftime[0].toInt()).toString().plus(":").plus(ftime[1]).plus(":").plus(ftime[2])
+            (fTime[0].toInt()).toString().plus(":").plus(fTime[1]).plus(":").plus(fTime[2])
                 .plus(" AM")
         }
-        return finaltime
     }
 }

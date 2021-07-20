@@ -1,7 +1,6 @@
 package com.example.randomuser.weatherReport
 
 import com.example.randomuser.network.WeatherReportDataClass
-import java.security.Timestamp
 
 /**
  * Created by desiaraj on 20/07/2021

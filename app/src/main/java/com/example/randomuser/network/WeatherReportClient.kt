@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit
 //This class is used for to get Weather report info for current location and random users location
 class WeatherReportClient {
 
-    var retrofit:Retrofit
+    private var retrofit:Retrofit
 
     fun getWeatherReportService(): WeatherReportService {
         return retrofit.create(WeatherReportService::class.java)
@@ -48,7 +48,7 @@ interface WeatherReportService{
     fun getWeatherByCoordinates(
         @Query("lat") lan: Double,
         @Query("lon") lon: Double,
-        @Query("appid") appid: String,
+        @Query("appid") appId: String,
         @Query("units") units: String
     ): Call<WeatherReportDataClass>
 }

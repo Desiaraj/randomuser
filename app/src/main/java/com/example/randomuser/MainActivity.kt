@@ -15,24 +15,24 @@ import com.example.randomuser.weatherReport.WeatherReportActivity
 class MainActivity : AppCompatActivity() {
 
     //declare button
-    lateinit var abuserdata:AppCompatButton
-    lateinit var abweatherreport:AppCompatButton
+    private lateinit var abUserData:AppCompatButton
+    private lateinit var abWeatherReport:AppCompatButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         //initialize
-        abuserdata = findViewById(R.id.ab_userdata)
-        abweatherreport = findViewById(R.id.ab_weatherdata)
+        abUserData = findViewById(R.id.ab_userdata)
+        abWeatherReport = findViewById(R.id.ab_weatherdata)
 
         //Open Remote User Detail
-        abuserdata.setOnClickListener {
+        abUserData.setOnClickListener {
           startActivity(Intent(this, RandomUserDataActivity::class.java))
         }
 
         //Open Current User Weather info
-        abweatherreport.setOnClickListener {
+        abWeatherReport.setOnClickListener {
             startActivity(Intent(this,WeatherReportActivity::class.java))
         }
     }

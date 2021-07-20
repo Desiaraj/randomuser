@@ -1,7 +1,6 @@
 package com.example.randomuser.network
 
 import com.squareup.moshi.Json
-import java.security.Timestamp
 
 /**
  * Created by desiaraj on 20/07/2021

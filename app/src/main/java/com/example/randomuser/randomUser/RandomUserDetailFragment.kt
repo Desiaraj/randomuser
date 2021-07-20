@@ -2,7 +2,6 @@ package com.example.randomuser.randomUser
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,21 +19,21 @@ import com.example.randomuser.weatherReport.WeatherReportActivity
 
 class RandomUserDetailFragment : Fragment() {
 
-    lateinit var userdetailBinding: FragmentRandomUserDetailBinding
-    lateinit var userdata: RandomUserDataClass
+    private lateinit var userDetailBinding: FragmentRandomUserDetailBinding
+    private lateinit var userdata: RandomUserDataClass
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        userdetailBinding = DataBindingUtil.inflate(
+        userDetailBinding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_random_user_detail,
             container,
             false
         )
-        return userdetailBinding.root
+        return userDetailBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,29 +43,29 @@ class RandomUserDetailFragment : Fragment() {
         //set user pic
         Glide.with(this)
             .load(userdata.picture?.large)
-            .into(userdetailBinding.civUserPic)
+            .into(userDetailBinding.civUserPic)
 
         //set username
         val name: String = userdata.name?.first.plus(" ").plus(userdata.name?.first).plus(" ")
             .plus(userdata.name?.last)
-        userdetailBinding.tvName.text = name
+        userDetailBinding.tvName.text = name
 
         //set user email
-        userdetailBinding.tvEmail.text = userdata.email
+        userDetailBinding.tvEmail.text = userdata.email
 
         //set user address
-        userdetailBinding.tvCell.text = userdata.cell
+        userDetailBinding.tvCell.text = userdata.cell
 
         //set user city
-        userdetailBinding.tvCity.text = userdata.location?.city
+        userDetailBinding.tvCity.text = userdata.location?.city
 
         //set user state
-        userdetailBinding.tvState.text = userdata.location?.state
+        userDetailBinding.tvState.text = userdata.location?.state
 
         //set user country
-        userdetailBinding.tvCountry.text = userdata.location?.country
+        userDetailBinding.tvCountry.text = userdata.location?.country
 
-        userdetailBinding.btRandomweather.setOnClickListener {
+        userDetailBinding.btRandomweather.setOnClickListener {
             startWeatherReportActivity()
         }
 
@@ -75,7 +74,7 @@ class RandomUserDetailFragment : Fragment() {
     private fun startWeatherReportActivity() {
         val intent =
             Intent(activity as RandomUserDataActivity, WeatherReportActivity::class.java).apply {
-                putExtra("fromrandomuser", true)
+                putExtra("fromRandomUser", true)
                 putExtra("lan", userdata.location?.coordinates?.lan?.toDouble())
                 putExtra("lon", userdata.location?.coordinates?.lon?.toDouble())
             }

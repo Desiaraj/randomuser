@@ -11,7 +11,6 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
@@ -31,13 +30,13 @@ import com.google.android.material.snackbar.Snackbar
 class WeatherReportActivity : AppCompatActivity(), LocationListener, WeatherReportContract.View,
     SwipeRefreshLayout.OnRefreshListener {
 
-    lateinit var locationManager: LocationManager;
-    lateinit var weatherReportPresenter: WeatherReportPresenter
-    lateinit var weatherBinding: ActivityWeatherReportBinding
+    private lateinit var locationManager: LocationManager
+    private lateinit var weatherReportPresenter: WeatherReportPresenter
+    private lateinit var weatherBinding: ActivityWeatherReportBinding
     private var lat: Double = 0.0
     private var lon: Double = 0.0
-    private var firstTimehit: Boolean = false;
-    private var fromRandomUser: Boolean = false;
+    private var firstTimeHit: Boolean = false
+    private var fromRandomUser: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +48,7 @@ class WeatherReportActivity : AppCompatActivity(), LocationListener, WeatherRepo
         weatherReportPresenter = WeatherReportPresenter(this)
         weatherBinding.swrRefresh.setOnRefreshListener(this)
 
-        fromRandomUser = intent.getBooleanExtra("fromrandomuser", false)
+        fromRandomUser = intent.getBooleanExtra("fromRandomUser", false)
         if (fromRandomUser) {
             lat = intent.getDoubleExtra("lan", 0.0)
             lon = intent.getDoubleExtra("lon", 0.0)
@@ -73,7 +72,7 @@ class WeatherReportActivity : AppCompatActivity(), LocationListener, WeatherRepo
 
     override fun onResume() {
         super.onResume()
-        if (!firstTimehit) {
+        if (!firstTimeHit) {
             locationPermisson()
         }
     }
@@ -106,13 +105,13 @@ class WeatherReportActivity : AppCompatActivity(), LocationListener, WeatherRepo
     override fun onLocationChanged(location: Location) {
         //Restrict for change lat and lon for random user
         if (!fromRandomUser) {
-            lat = location.latitude;
+            lat = location.latitude
             lon = location.longitude
 
             //Restrict for countinues API hit
-            if (!firstTimehit) {
+            if (!firstTimeHit) {
                 weatherReportPresenter.getWeatherReport(lat, lon)
-                firstTimehit = true
+                firstTimeHit = true
             }
         }
     }

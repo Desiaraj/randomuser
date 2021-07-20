@@ -1,7 +1,6 @@
 package com.example.randomuser.randomUser
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,56 +24,54 @@ import com.google.android.material.snackbar.Snackbar
 
 class RandomUsersListFragment : Fragment(), RandomUserDataContract.View {
 
-    lateinit var fragmentrandom: FragmentRandomUsersListBinding
+    lateinit var fragmentRandom: FragmentRandomUsersListBinding
     lateinit var randomUserDataPresenter: RandomUserDataPresenter
-    var initialcount = 25;
-    var isLoading = false;
-    private var randomuserList: ArrayList<RandomUserDataClass> = ArrayList()
-    private var searcharrayList: ArrayList<RandomUserDataClass> = ArrayList()
-    lateinit var randomUserListAdapter: RandomUserListAdapter
+    var initialCount = 25
+    var isLoading = false
+    private var randomUserList: ArrayList<RandomUserDataClass> = ArrayList()
+    private var searchArrayList: ArrayList<RandomUserDataClass> = ArrayList()
+    private lateinit var randomUserListAdapter: RandomUserListAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        fragmentrandom =
+        fragmentRandom =
             DataBindingUtil.inflate(inflater, R.layout.fragment_random_users_list, container, false)
-        fragmentrandom.shimmerUserdata.startShimmer()
+        fragmentRandom.shimmerUserdata.startShimmer()
         randomUserDataPresenter = RandomUserDataPresenter(this)
         randomUserListAdapter =
-            RandomUserListAdapter(activity as RandomUserDataActivity, randomuserList, this)
-        fragmentrandom.rvUserslist.adapter = randomUserListAdapter
-        return fragmentrandom.root
+            RandomUserListAdapter(activity as RandomUserDataActivity, randomUserList, this)
+        fragmentRandom.rvUserslist.adapter = randomUserListAdapter
+        return fragmentRandom.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        randomuserList.clear()
-        initialcount = 25
-        randomUserDataPresenter.getRandomUserDetail(initialcount)
-        Glide.with(this).asGif().load(R.drawable.loader).into(fragmentrandom.imgLoader)
-        fragmentrandom.rvUserslist.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-            }
+        randomUserList.clear()
+        initialCount = 25
+        randomUserDataPresenter.getRandomUserDetail(initialCount)
+        Glide.with(this).asGif().load(R.drawable.loader).into(fragmentRandom.imgLoader)
+        fragmentRandom.rvUserslist.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val layoutmanager = recyclerView.layoutManager as LinearLayoutManager
-                val totalitem = layoutmanager.itemCount
-                val lastvisible = layoutmanager.findLastVisibleItemPosition()
-                val endreached = lastvisible + 1 >= totalitem
-                if (totalitem > 0 && endreached) {
-                    if (!isLoading && searcharrayList.size == 0) {
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val totalItem = layoutManager.itemCount
+                val lastVisible = layoutManager.findLastVisibleItemPosition()
+                val endReached = lastVisible + 1 >= totalItem
+                if (totalItem > 0 && endReached) {
+                    if (!isLoading && searchArrayList.size == 0) {
                         isLoading = true
-                        fragmentrandom.imgLoader.visibility = View.VISIBLE
-                        initialcount += 25
-                        randomUserDataPresenter.getRandomUserDetail(initialcount)
+                        fragmentRandom.imgLoader.visibility = View.VISIBLE
+                        initialCount += 25
+                        randomUserDataPresenter.getRandomUserDetail(initialCount)
                     }
                 }
             }
         })
 
-        fragmentrandom.svSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        fragmentRandom.svSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 if (query.isNotEmpty()) {
                     filterList(query)
@@ -86,64 +83,61 @@ class RandomUsersListFragment : Fragment(), RandomUserDataContract.View {
                 return false
             }
         })
-        fragmentrandom.svSearch.setOnCloseListener(object : SearchView.OnCloseListener {
-            override fun onClose(): Boolean {
-                initialcount = 25;
-                randomuserList.clear()
-                searcharrayList.clear()
-                randomUserListAdapter.notifyDataSetChanged()
-                randomUserDataPresenter.getRandomUserDetail(initialcount)
-                return false
-            }
-
-        })
+        fragmentRandom.svSearch.setOnCloseListener {
+            initialCount = 25
+            randomUserList.clear()
+            searchArrayList.clear()
+            randomUserListAdapter.notifyDataSetChanged()
+            randomUserDataPresenter.getRandomUserDetail(initialCount)
+            false
+        }
     }
 
     fun filterList(text: String) {
-        searcharrayList.clear()
-        randomuserList.forEach { item ->
+        searchArrayList.clear()
+        randomUserList.forEach { item ->
             if (item.name?.first?.contains(text)!! || item.name.last?.contains(text)!! ||
                 item.email?.contains(text)!! || item.location?.country?.contains(text)!! ||
                 item.location.state?.contains(text)!!
             ) {
-                searcharrayList.add(item)
+                searchArrayList.add(item)
             }
         }
-        if (searcharrayList.size > 0) {
-            randomuserList.clear()
-            randomuserList.addAll(searcharrayList)
+        if (searchArrayList.size > 0) {
+            randomUserList.clear()
+            randomUserList.addAll(searchArrayList)
             randomUserListAdapter.notifyDataSetChanged()
         }
     }
 
     override fun getUserDetail(userdata: List<RandomUserDataClass>) {
-        if (initialcount > 25) {
+        if (initialCount > 25) {
             isLoading = false
-            fragmentrandom.imgLoader.visibility = View.GONE
+            fragmentRandom.imgLoader.visibility = View.GONE
         }
-        randomuserList.clear()
-        randomuserList.addAll(userdata)
-        randomUserListAdapter.submitList(randomuserList)
+        randomUserList.clear()
+        randomUserList.addAll(userdata)
+        randomUserListAdapter.submitList(randomUserList)
         randomUserListAdapter.notifyDataSetChanged()
-        fragmentrandom.shimmerUserdata.stopShimmer()
-        fragmentrandom.shimmerUserdata.visibility = View.GONE
-        fragmentrandom.rlHome.visibility = View.VISIBLE
+        fragmentRandom.shimmerUserdata.stopShimmer()
+        fragmentRandom.shimmerUserdata.visibility = View.GONE
+        fragmentRandom.rlHome.visibility = View.VISIBLE
     }
 
 
     override fun getUserDataFailure(msg: String) {
-       Snackbar.make(fragmentrandom.rlHome,msg,1000).show()
+       Snackbar.make(fragmentRandom.rlHome,msg,1000).show()
     }
 
     override fun userClicked(data: RandomUserDataClass) {
         val bundle = bundleOf("data" to data)
-        getNavController()?.navigate(
+        getNavController().navigate(
             R.id.action_randomUsersListFragment_to_randomUserDetailFragment,
             bundle
         )
     }
 
-    private fun getNavController(): NavController? {
+    private fun getNavController(): NavController {
         val fragment: Fragment? =
             activity?.supportFragmentManager?.findFragmentById(R.id.my_navhost_fragment)
         check(fragment is NavHostFragment) { "Activity $this does not have a NavHostFragment" }
