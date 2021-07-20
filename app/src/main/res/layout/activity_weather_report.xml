@@ -9,12 +9,12 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/weather_android"
     android:id="@+id/swr_refresh">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/weather_android"
         tools:context=".weatherReport.WeatherReportActivity">
 
         <LinearLayout
